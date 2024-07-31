@@ -18,3 +18,11 @@ module "container_registry" {
   registry_name     = var.registry_name
   subscription_tier = var.subscription_tier
 }
+
+module "kubernetes" {
+  source        = "./modules/kubernetes"
+  cluster_name  = "${var.vpc_name}-cluster"
+  region        = var.region
+  tags          = [digitalocean_tag.socks_shop.name, digitalocean_tag.development.name]
+  vpc_id        = module.vpc.vpc_id
+}
