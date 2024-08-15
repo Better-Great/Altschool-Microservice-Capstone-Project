@@ -1,0 +1,12 @@
+name: infrastructure-deployment-pipeline
+on:
+  push:
+    branches:
+      - main
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    # Clone the repo
+    - name: Checkout code
+      uses: actions/checkout@v3
