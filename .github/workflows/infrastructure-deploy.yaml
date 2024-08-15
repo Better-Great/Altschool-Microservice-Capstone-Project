@@ -1,12 +1,27 @@
-name: infrastructure-deployment-pipeline
+name: infrastructure-pipeline
 on:
   push:
     branches:
-      - main
+      - terraform
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-    # Clone the repo
-    - name: Checkout code
-      uses: actions/checkout@v3
+      # Clone the repo
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Install doctl (DigitalOcean CLI)
+      - name: Install doctl
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+        
+      - name: Install kubectl
+        uses: azure/setup-kubectl@v3 
+  
+      - name: Install helm
+        uses: azure/setup-helm@v4.2.0 
+  
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v2 
