@@ -39,3 +39,4 @@ infrastructure/terraform.tfstate.backup
 
 # Ignore Terraform modules
 infrastructure/.terraform/
+infrastructure/terraform.tfstate
