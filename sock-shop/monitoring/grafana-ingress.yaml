@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: grafana-ingress
+  namespace: monitoring
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: "letsencrypt-dev"
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: grafana.capstone.better-great.me
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: prometheus-grafana
+            port: 
+              number: 80
+  tls:
+    - hosts:
+        - grafana.capstone.better-great.me
+      secretName: grafana-tls

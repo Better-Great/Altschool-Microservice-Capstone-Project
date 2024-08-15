@@ -17,3 +17,8 @@ output "registry_endpoint" {
   description = "Endpoint for the container registry"
   value       = module.container_registry.registry_endpoint
 }
+
+output "kubernetes_cluster_id" {
+  description = "ID of the created Kubernetes cluster"
+  value       = module.kubernetes.cluster_id
+}
