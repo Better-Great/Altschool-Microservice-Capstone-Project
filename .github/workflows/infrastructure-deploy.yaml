@@ -29,12 +29,13 @@ jobs:
     - name: Terraform Plan
     
       if: github.event_name == 'pull_request'
-      run: terraform plan -no-color
+      run: terraform plan -var "do_token=${{ secrets.DIGITALOCEAN_TOKEN }}" -no-color
       continue-on-error: true
 
     - name: Terraform Apply
       if: github.ref == 'refs/heads/terraform' && github.event_name == 'push'
-      run: terraform apply -auto-approve
+      run: terraform apply -var "do_token=${{ secrets.DIGITALOCEAN_TOKEN }}" -auto-approve
+
 
     - name: Terraform Output
       if: github.ref == 'refs/heads/terraform' && github.event_name == 'push'
