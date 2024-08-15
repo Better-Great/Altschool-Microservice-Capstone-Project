@@ -2,7 +2,7 @@ name: infrastructure-pipeline
 on:
   push:
     branches:
-      - terraform
+      - main
 jobs:
   deploy:
     runs-on: ubuntu-latest
