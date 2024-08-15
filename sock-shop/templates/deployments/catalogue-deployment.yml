@@ -1,32 +1,33 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: queue-master
+  name: catalogue
   labels:
-    name: queue-master
+    name: catalogue
   namespace: sock-shop
 spec:
   replicas: 1
   selector:
     matchLabels:
-      name: queue-master
+      name: catalogue
   template:
     metadata:
       labels:
-        name: queue-master
+        name: catalogue
     spec:
       containers:
-      - name: queue-master
-        image: weaveworksdemos/queue-master:0.3.1
+      - name: catalogue
+        image: weaveworksdemos/catalogue:0.3.5
+        command: ["/app"]
         args:
         - -port=80
         resources:
           limits:
             cpu: 200m
-            memory: 500Mi
-          requests:
-            cpu: 50m
             memory: 200Mi
+          requests:
+            cpu: 100m
+            memory: 100Mi
         ports:
         - containerPort: 80
         securityContext:
