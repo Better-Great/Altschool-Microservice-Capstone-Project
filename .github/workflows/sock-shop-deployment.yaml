@@ -72,7 +72,7 @@ jobs:
           kubectl apply -f sock-shop/monitoring/manifest-monitoring/
 
       - name: Deploy Alertmanager
-        run: kubectl apply -f sock-shop/alert/
+        run: kubectl apply -f sock-shop/alerts/
 
       - name: Run Tests
         run: |
