@@ -67,3 +67,9 @@ variable "tags" {
   # default     = ["socks-shop", "development"]
   default = []
 }
+
+variable "create_firewall" {
+  description = "Whether to create a new firewall"
+  type        = bool
+  default     = true
+}

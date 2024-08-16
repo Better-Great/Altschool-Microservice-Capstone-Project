@@ -1,14 +1,4 @@
 output "vpc_id" {
-  description = "ID of the created VPC"
-  value       = digitalocean_vpc.main.id
-}
-
-output "db_cluster_id" {
-  description = "ID of the created database cluster"
-  value       = digitalocean_database_cluster.postgres.id
-}
-
-output "db_cluster_private_host" {
-  description = "Private hostname of the database cluster"
-  value       = digitalocean_database_cluster.postgres.private_host
+  description = "ID of the VPC (created or existing)"
+  value       = var.create_vpc ? (length(digitalocean_vpc.main) > 0 ? digitalocean_vpc.main[0].id : null) : var.existing_vpc_id
 }

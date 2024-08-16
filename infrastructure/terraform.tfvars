@@ -5,3 +5,7 @@ vpc_description = "VPC for Socks Shop microservice"
 firewall_name = "socks-shop-firewall"
 registry_name     = "socks-shop-registry"
 subscription_tier = "basic"
+create_registry = true
+create_vpc = true
+create_firewall = true
+existing_vpc_id = "socks-shop-vpc"

@@ -38,3 +38,28 @@ variable "subscription_tier" {
   description = "Subscription tier for the container registry"
   type        = string
 }
+
+variable "create_vpc" {
+  description = "Whether to create a new VPC"
+  type        = bool
+  default     = false
+}
+
+variable "create_registry" {
+  description = "Whether to create a new container registry"
+  type        = bool
+  default     = false
+}
+
+variable "create_firewall" {
+  description = "Whether to create a new firewall"
+  type        = bool
+  default     = true
+}
+
+variable "existing_vpc_id" {
+  description = "ID of an existing VPC to use if not creating a new one"
+  type        = string
+  default     = ""
+}
+

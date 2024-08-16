@@ -1,5 +1,6 @@
 resource "digitalocean_firewall" "main" {
-  name = var.firewall_name
+  count = var.create_firewall ? 1 : 0
+  name  = var.firewall_name
 
   droplet_ids = var.droplet_ids
 
@@ -23,4 +24,3 @@ resource "digitalocean_firewall" "main" {
 
   tags = var.tags
 }
-

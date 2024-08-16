@@ -31,3 +31,16 @@ variable "db_node_count" {
   type        = number
   default     = 1
 }
+
+variable "create_vpc" {
+  description = "Whether to create a new VPC"
+  type        = bool
+  default     = false
+}
+
+variable "existing_vpc_id" {
+  description = "ID of an existing VPC to use if not creating a new one"
+  type        = string
+  default     = ""
+}
+
