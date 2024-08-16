@@ -1,0 +1,91 @@
+name: Sock-shop Application CI/CD
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Install doctl
+      uses: digitalocean/action-doctl@v2
+      with:
+        token: ${{ secrets.DIGITALOCEAN_TOKEN }}
+
+    - name: Install kubectl
+      uses: azure/setup-kubectl@v3
+      with:
+        version: 'v1.29.0'
+
+    - name: Install Helm
+      uses: azure/setup-helm@v4.1.0
+      with:
+        version: 'v3.14.0'
+  
+    - name: Download Kubernetes Credentials
+      uses: actions/download-artifact@v3
+      with:
+        name: kubernetes-credentials
+  
+    - name: Set up Kubernetes Credentials
+      run: |
+        export KUBERNETES_HOST=$(cat kubernetes_host.txt)
+        export KUBERNETES_TOKEN=$(cat kubernetes_token.txt)
+        doctl kubernetes cluster kubeconfig save --token ${{ secrets.DIGITALOCEAN_TOKEN }} $(terraform output -raw kubernetes_cluster_name)
+  
+    - name: Deploy Namespaces
+      run: kubectl apply -f manifest/namespaces/
+  
+    - name: Deploy Application
+      run: |
+        kubectl apply -f manifest/deployments/
+        kubectl apply -f manifest/services/
+  
+    - name: Install NGINX Ingress Controller
+      run: |
+        helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+        helm repo update
+        helm upgrade --install ingress-nginx ingress-nginx/ingress-nginx \
+        --namespace ingress-nginx --create-namespace
+
+    
+    - name: Install Cert-Manager
+      run: |
+        helm repo add jetstack https://charts.jetstack.io
+        helm repo update
+        helm upgrade --install cert-manager jetstack/cert-manager \
+          --namespace cert-manager --create-namespace \
+          --version v1.7.2 --set installCRDs=true
+
+    - name: Deploy Ingress Resources
+      run: kubectl apply -f ingress/
+
+    - name: Deploy Monitoring Stack
+      run: |
+        kubectl apply -f sock-shop/monitoring/manifest-monitoring/
+
+    - name: Deploy Alertmanager
+      run: kubectl apply -f sock-shop/alert/
+
+    - name: Run Tests
+      run: |
+        # Add your test commands here
+        echo "Running tests..."
+
+    - name: Notify Slack
+      uses: slackapi/slack-github-action@v1.24.0
+      with:
+        payload: |
+          {
+            "text": "Main Application CI/CD completed: ${{ job.status }}"
+          }
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+  
