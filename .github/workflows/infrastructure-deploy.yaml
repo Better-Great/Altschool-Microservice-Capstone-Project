@@ -26,12 +26,16 @@ jobs:
     - name: Terraform Validate
       run: terraform validate -no-color
 
+    - name: Import existing resources
+      run: |
+        terraform import module.container_registry.digitalocean_container_registry.registry socks-shop-registry || echo "Container registry import failed, might not exist yet"
+        terraform import module.firewall.digitalocean_firewall.main socks-shop-firewall || echo "Firewall import failed, might not exist yet"
+        terraform import module.vpc.digitalocean_vpc.main socks-shop-vpc || echo "VPC import failed, might not exist yet"
+
     - name: Terraform Refresh
       run: terraform refresh -var "do_token=${DIGITALOCEAN_TOKEN}" -no-color
 
     - name: Terraform Plan
-    
-      if: github.event_name == 'pull_request'
       run: terraform plan -var "do_token=${DIGITALOCEAN_TOKEN}" -no-color
       continue-on-error: true
 
