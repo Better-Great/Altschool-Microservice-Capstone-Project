@@ -4,9 +4,7 @@
 This project shows how to deploy microservices using Terraform for Infrastructure as Code (IaC) and Kubernetes for container management. It also sets up a complete CI/CD pipeline using GitHub Actions, along with monitoring using Prometheus and Grafana as well as alerting tools such mail and slack.
 
 ### Image of The Application
-![Frontend](images/8.png)
-
-
+![8](https://github.com/user-attachments/assets/c45e8e28-2dad-4912-8384-c6ee847b4f6f)
 
 ## Contents:
 1. Prerequisites
@@ -196,6 +194,20 @@ doctl auth init
 - Add the following GitHub Variables to your repository for region specification:
 
 - **DO_REGION:** The DigitalOcean region where your resources will be deployed (e.g., nyc3, sfo3)
+
+![up1](https://github.com/user-attachments/assets/a2ff4cad-22dd-488e-b800-5e18a4cab67a)
+![up2](https://github.com/user-attachments/assets/2be174a6-cccb-43da-b847-44d28a284bb3)
+
+![grafana](https://github.com/user-attachments/assets/1b9f2a90-b92a-4e6b-b2ed-c95b8faecd89)
+![grafana1](https://github.com/user-attachments/assets/b239f337-e735-43ba-9c5f-804ef0da3754)
+![grafana2](https://github.com/user-attachments/assets/595be20b-c169-4fc7-9d94-7b8a04064e0a)
+![grafana3](https://github.com/user-attachments/assets/23a3eb57-3635-428e-9f4b-8da8313c6679)
+![gra-frontend](https://github.com/user-attachments/assets/a468d4ab-95ff-4643-882c-2413577c95ac)
+
+
+![slack](https://github.com/user-attachments/assets/4597cf37-54f8-4724-be17-485032709488)
+
+
 
 
 
