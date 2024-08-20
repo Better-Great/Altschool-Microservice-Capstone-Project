@@ -210,7 +210,8 @@ doctl auth init
  terraform apply --auto-approve
  ```
 
-### Below are some of the resources you'll see after running terraform apply
+### Below are some of the resources you'll see after running terraform apply  
+
 ![database](https://github.com/user-attachments/assets/6465fe69-0830-4190-b661-a9d621b5a0c2)
 ![droplets](https://github.com/user-attachments/assets/b54b273e-2f8e-41df-8063-96dfc8a9178f)
 ![cluster](https://github.com/user-attachments/assets/b6f2a4fe-71f0-4524-85e8-6d66c17043a2)
@@ -256,7 +257,8 @@ kubectl get pods,svc
 With the ingress  properly configured, we have to ensure that all the neccessary requirement for our domain name to function has been carried out.This is due to the fact that we have to connect our domain name to the sock-shop application.
 ** Steps**
 - Add an `A` record pointing to our Ingress Controller
-- Add `CNAME`/ `A` records for different services within the application.  
+- Add `CNAME`/ `A` records for different services within the application.
+ 
 ![1-domain](https://github.com/user-attachments/assets/541bbe3a-38d0-4bd5-a4ea-c786822f65ab)
 
 To make your application accessible via your domain name, you need to apply the ingress configuration. `kubectl apply -f ingress.yaml`
@@ -299,6 +301,7 @@ kubectl describe pod <grafana-pod-name> -n monitoring
 kubectl get secret prometheus-grafana -n sock-shop -o jsonpath="{.data.admin-user}" | base64 --decode
 kubectl get secret prometheus-grafana -n sock-shop -o jsonpath="{.data.admin-password}" | base64 --decode
 ```
+
 ![up1](https://github.com/user-attachments/assets/a2ff4cad-22dd-488e-b800-5e18a4cab67a)
 ![up2](https://github.com/user-attachments/assets/2be174a6-cccb-43da-b847-44d28a284bb3)
 ![grafana](https://github.com/user-attachments/assets/1b9f2a90-b92a-4e6b-b2ed-c95b8faecd89)
@@ -328,6 +331,7 @@ The second pipeline `sock-shop-deployment.yaml` deploys the Sock Shop applicatio
 - Sets up monitoring and alerting
 - Runs tests (placeholder)
 - Notifies Slack about the completion status
+
 ![deploy-cicd](https://github.com/user-attachments/assets/8bdf609f-bf6e-40cd-b13a-5bbfd6d363fa)
 ![deploy-cicd2](https://github.com/user-attachments/assets/700208e0-feb9-43e2-b85f-7f9519ec1559)
 ![terraform](https://github.com/user-attachments/assets/67eeab62-9abc-4814-a8d5-1e47e94feaa9)
